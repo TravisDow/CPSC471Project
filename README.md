@@ -1,3 +1,1 @@
-"# CPSC471Project" 
-
-Hello, World!
+# CPSC471Project
