@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 
-public class Pharmacy extends Stock  
+public class Pharmacy 
 {
 
     private String address; //set and get Address
     private String hours;  //set and get Hours
 
-	public static void main(String[] args) {
-		System.out.println("Pharmacy Class");  
-	}
+    Pharmacy(String address, String hours){
+        setAddress(address);
+        setHours(hours);
+    }
 
     public void setAddress(String address){
         this.address=address;

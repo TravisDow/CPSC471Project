@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class Stock extends Drug  
+public class Stock 
 {
 
     private int amount;   
     
-	public static void main(String[] args) {
-		System.out.println("Stock Class");  
-	}
+    Stock(int amount){
+        setAmount(amount);
+    }
 
     public void setAmount(int amount){
         this.amount=amount;

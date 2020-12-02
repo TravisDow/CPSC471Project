@@ -6,9 +6,11 @@ public class Paper extends Prescription
     private String datePrescribed;
     private String dateReceived;
     
-	public static void main(String[] args) {
-		System.out.println("Paper Class");  
-	}
+    Paper(String physician, String patient, String drug, int prescriptionNo, String datePrescribed, String dateReceived){
+        super(physician, patient, drug,prescriptionNo);
+        setDatePrescribed(datePrescribed);
+        setDateReceived(dateReceived);
+    }
 
     public void setDatePrescribed(String datePrescribed){
         this.datePrescribed=datePrescribed;
@@ -26,16 +28,14 @@ public class Paper extends Prescription
         return this.dateReceived;
     };
 
-    /*
     public Physical completePrescription(Paper paper){
-        String physician=super.getPhysician();
-        String patient=super.getPatient();
-        String drug=super.getDrug();
-        int prescriptionNo=super.getPrescriptionNo();
-        String dateFilled= "01-01-01";
-        String datePickedUp= "02-01-01";
-        Physical physical= new Physical(physician, patient, drug, prescriptionNo);
+        String physician=paper.getPhysician();
+        String patient=paper.getPatient();
+        String drug=paper.getDrug();
+        int prescriptionNo=paper.getPrescriptionNo();
+        String dateFilled= paper.getDateReceived(); //may have to change 
+        Physical physical= new Physical(physician, patient, drug, prescriptionNo, dateFilled);
         return physical;
-    }; */ // needs fixing, need to get attributes specific to variable paper 
+    } 
 
 }

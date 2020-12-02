@@ -1,20 +1,21 @@
 import java.util.ArrayList;
 
-public class Insurance extends Patient 
+public class Insurance
 {
 
-    private String name; //get and set Iname 
+    private String name; 
     private String location;
     
-	public static void main(String[] args) {
-		System.out.println("Insurance Class");
-	}
+    Insurance(String name, String location){
+        setName(name);
+        setLocation(location);
+    }
 
-    public void setIname(String name){
+    public void setName(String name){
         this.name=name;
     };
 
-    public String getIName(){
+    public String getName(){
         return this.name;
     };
 

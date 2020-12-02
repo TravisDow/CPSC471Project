@@ -8,10 +8,12 @@ public class Patient
     private ArrayList<String> name; 
     private ArrayList<String> previousMeds; 
 
-
-	public static void main(String[] args) {
-		System.out.println("Patient Class");  
-	}
+    Patient(int phone, char sex, ArrayList<String> name, ArrayList<String> previousMeds){
+        setPhone(phone);
+        setSex(sex);
+        setName(name);
+        setPreviousMeds(previousMeds);
+    }
 
     public void setPhone(int phone){
         this.phone=phone;

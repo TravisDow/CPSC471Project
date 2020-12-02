@@ -4,11 +4,13 @@ public class Admin extends Staff
 {
 
     private String email; //set and get Email
-    private int phone; //set and get Aphone
+    private int phone; //set and get Phone
 
-	public static void main(String[] args) {
-		System.out.println("Admin Class");  
-	}
+    Admin(String name, String position, int staffID, String email, int phone){
+        super(name,position,staffID);
+        setEmail(email);
+        setPhone(phone);
+    }
 
     public void setEmail(String email){
         this.email=email;
@@ -17,11 +19,11 @@ public class Admin extends Staff
         return this.email;
     };
 
-    public void setAphone(int phone){
+    public void setPhone(int phone){
         this.phone=phone;
     };
 
-    public int getAphone(){
+    public int getPhone(){
         return this.phone;
     };
    

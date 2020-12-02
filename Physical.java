@@ -6,24 +6,20 @@ public class Physical extends Prescription
     private String dateFilled;
     private String datePickedUp;
     
-	public static void main(String[] args) {
-		System.out.println("Physical Class");  
-	}
-
-    /*
-    public Physical(){
-        Physical physical= new Prescription("none", "none", "none", 000);
-    }
-
+    //constructor without datePickedUp
     public Physical(String physician, String patient, String drug, int prescriptionNo, String dateFilled){
-        super.setPhysician(physician);
-        super.setPatient(patient);
-        super.setDrug(drug);
-        super.setPrescriptionNo(prescriptionNo);
+        super(physician, patient, drug,prescriptionNo);
         setDateFilled(dateFilled);
     }
-    */
     
+    //constructor with datePickedUp
+    public Physical(String physician, String patient, String drug, int prescriptionNo, String dateFilled, String datePickedUp){
+        super(physician, patient, drug,prescriptionNo);
+        setDateFilled(dateFilled);
+        setDatePickedUp(datePickedUp);
+    }
+
+
     public void setDateFilled(String dateFilled){
         this.dateFilled=dateFilled;
     };

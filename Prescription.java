@@ -8,17 +8,12 @@ public class Prescription
     private String drug;
     private int prescriptionNo;  
     
-	public static void main(String[] args) {
-		System.out.println("Prescription Class");  
-	}
-
-    /*
     public Prescription(String physician, String patient, String drug, int prescriptionNo){
         setPhysician(physician);
         setPatient(patient);
         setDrug(drug);
         setPrescriptionNo(prescriptionNo);
-    }*/
+    }
 
     public void setPhysician(String physician){
         this.physician=physician;

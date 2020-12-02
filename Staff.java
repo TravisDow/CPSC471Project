@@ -7,9 +7,11 @@ public class Staff
     private String position;  //set and get Position
     private int staffID; //set and get Sid 
 
-	public static void main(String[] args) {
-		System.out.println("Staff Class");  
-	}
+    Staff(String name, String position, int staffID){
+        setSname(name);
+        setPosition(position);
+        setSid(staffID);
+    }
 
     public void setSname(String name){
         this.name=name;

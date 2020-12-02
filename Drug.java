@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Drug extends Manufacturer
+public class Drug 
 {
 
     private String genericName;
@@ -11,10 +11,15 @@ public class Drug extends Manufacturer
     private ArrayList<String> sideEffects; 
     private ArrayList<String> foodIncompatibility; 
 
-
-	public static void main(String[] args) {
-		System.out.println("Drug Class"); 
-	}
+    Drug(String genericName, String brandName, String dose, int din, ArrayList<String> intendedEffects, ArrayList<String> sideEffects, ArrayList<String> foodIncompatibility){
+        setGenericName(genericName);
+        setBrandName(brandName);
+        setDose(dose);
+        setDin(din);
+        setIntendedEffects(intendedEffects);
+        setSideEffects(sideEffects);
+        setFoodIncompatibility(foodIncompatibility);
+    }
 
     public void setGenericName(String genericName){
         this.genericName=genericName;

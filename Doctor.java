@@ -1,15 +1,17 @@
 import java.util.ArrayList;
 
-public class Doctor extends Patient 
+public class Doctor
 {
 
     private String name; //set and get Dname
     private String location;  //set and get Dlocation
     private int doctorId; //set and get Did 
 
-	public static void main(String[] args) {
-		System.out.println("Doctor Class");  
-	}
+    Doctor(String name, String location, int doctorId){
+        setDname(name);
+        setDlocation(location);
+        setDid(doctorId);
+    }
 
     public void setDname(String name){
         this.name=name;
