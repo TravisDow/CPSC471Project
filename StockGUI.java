@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class Stock {
+public class StockGUI {
 
 	private Text textDIN;
 	private Text textStock;
@@ -19,7 +19,7 @@ public class Stock {
 	 */
 	public static void main(String[] args) {
 		try {
-			Stock window = new Stock();
+			StockGUI window = new StockGUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();

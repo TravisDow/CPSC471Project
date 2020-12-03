@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class Drug {
+public class DrugGUI {
 	
 	private Text textDIN;
 	private Text textIntendedEffects;
@@ -24,7 +24,7 @@ public class Drug {
 	 */
 	public static void main(String[] args) {
 		try {
-			Drug window = new Drug();
+			DrugGUI window = new DrugGUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();

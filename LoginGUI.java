@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Menu;
 
-public class Login {
+public class LoginGUI {
 
 	/**
 	 * Launch the application.

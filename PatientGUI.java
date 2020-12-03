@@ -7,13 +7,15 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class Doctor {
-
-	private Text textDoctorID;
-	private Text textClinic;
+public class PatientGUI {
+	
+	private Text textPhoneNumber;
+	private Text textSex;
+	private Text textPreviousMedications;
 	private Text textFName;
 	private Text textLName;
 	private Text textMName;
+	
 	
 	/**
 	 * Launch the application.
@@ -21,7 +23,7 @@ public class Doctor {
 	 */
 	public static void main(String[] args) {
 		try {
-			Doctor window = new Doctor();
+			PatientGUI window = new PatientGUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,11 +56,11 @@ public class Doctor {
 		btnModify.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.NORMAL));
 		btnModify.setBounds(744, 480, 200, 100);
 		
-		Label lblDoctorID = new Label(shlPharmacyManagementSystem, SWT.NONE);
-		lblDoctorID.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		lblDoctorID.setAlignment(SWT.CENTER);
-		lblDoctorID.setBounds(130, 50, 125, 45);
-		lblDoctorID.setText("Doctor ID:");
+		Label lblPhoneNumber = new Label(shlPharmacyManagementSystem, SWT.NONE);
+		lblPhoneNumber.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblPhoneNumber.setAlignment(SWT.CENTER);
+		lblPhoneNumber.setBounds(130, 50, 125, 45);
+		lblPhoneNumber.setText("Phone Number:");
 		
 		Label lblName = new Label(shlPharmacyManagementSystem, SWT.NONE);
 		lblName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
@@ -66,19 +68,29 @@ public class Doctor {
 		lblName.setAlignment(SWT.CENTER);
 		lblName.setBounds(480, 50, 125, 45);
 		
-		Label lblClinic = new Label(shlPharmacyManagementSystem, SWT.NONE);
-		lblClinic.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		lblClinic.setText("Clinic:");
-		lblClinic.setAlignment(SWT.CENTER);
-		lblClinic.setBounds(130, 178, 125, 45);
+		Label lblPreviousMedications = new Label(shlPharmacyManagementSystem, SWT.NONE);
+		lblPreviousMedications.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblPreviousMedications.setText("Previous Medications:");
+		lblPreviousMedications.setAlignment(SWT.CENTER);
+		lblPreviousMedications.setBounds(480, 175, 125, 45);
 		
-		textDoctorID = new Text(shlPharmacyManagementSystem, SWT.BORDER);
-		textDoctorID.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		textDoctorID.setBounds(280, 50, 125, 45);
+		Label lblSex = new Label(shlPharmacyManagementSystem, SWT.NONE);
+		lblSex.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblSex.setText("Sex:");
+		lblSex.setAlignment(SWT.CENTER);
+		lblSex.setBounds(130, 175, 125, 45);
 		
-		textClinic = new Text(shlPharmacyManagementSystem, SWT.BORDER);
-		textClinic.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		textClinic.setBounds(280, 175, 125, 45);
+		textPhoneNumber = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textPhoneNumber.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textPhoneNumber.setBounds(280, 50, 125, 45);
+		
+		textSex = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textSex.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textSex.setBounds(280, 175, 125, 45);
+		
+		textPreviousMedications = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textPreviousMedications.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textPreviousMedications.setBounds(630, 175, 500, 200);
 		
 		textFName = new Text(shlPharmacyManagementSystem, SWT.BORDER);
 		textFName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));

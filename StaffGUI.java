@@ -7,10 +7,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class Insurance {
+public class StaffGUI {
 
-	private Text textName;
-	private Text textLocation;
+	private Text textStaffID;
+	private Text textPosition;
+	private Text textFName;
+	private Text textLName;
+	private Text textMName;
+	
 	
 	/**
 	 * Launch the application.
@@ -18,7 +22,7 @@ public class Insurance {
 	 */
 	public static void main(String[] args) {
 		try {
-			Insurance window = new Insurance();
+			StaffGUI window = new StaffGUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,25 +55,43 @@ public class Insurance {
 		btnModify.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.NORMAL));
 		btnModify.setBounds(744, 480, 200, 100);
 		
+		Label lblStaffID = new Label(shlPharmacyManagementSystem, SWT.NONE);
+		lblStaffID.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblStaffID.setAlignment(SWT.CENTER);
+		lblStaffID.setBounds(130, 50, 125, 45);
+		lblStaffID.setText("Staff ID:");
+		
 		Label lblName = new Label(shlPharmacyManagementSystem, SWT.NONE);
 		lblName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		lblName.setAlignment(SWT.CENTER);
-		lblName.setBounds(130, 50, 125, 45);
 		lblName.setText("Name:");
+		lblName.setAlignment(SWT.CENTER);
+		lblName.setBounds(480, 50, 125, 45);
 		
-		Label lblLocation = new Label(shlPharmacyManagementSystem, SWT.NONE);
-		lblLocation.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		lblLocation.setText("Location:");
-		lblLocation.setAlignment(SWT.CENTER);
-		lblLocation.setBounds(130, 175, 125, 45);
+		Label lblPosition = new Label(shlPharmacyManagementSystem, SWT.NONE);
+		lblPosition.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblPosition.setText("Position:");
+		lblPosition.setAlignment(SWT.CENTER);
+		lblPosition.setBounds(130, 175, 125, 45);
 		
-		textName = new Text(shlPharmacyManagementSystem, SWT.BORDER);
-		textName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		textName.setBounds(280, 50, 125, 45);
+		textStaffID = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textStaffID.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textStaffID.setBounds(280, 50, 125, 45);
 		
-		textLocation = new Text(shlPharmacyManagementSystem, SWT.BORDER);
-		textLocation.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		textLocation.setBounds(280, 175, 125, 45);
+		textPosition = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textPosition.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textPosition.setBounds(280, 175, 125, 45);
+		
+		textFName = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textFName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textFName.setBounds(630, 50, 125, 45);
+		
+		textLName = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textLName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textLName.setBounds(892, 50, 125, 45);
+		
+		textMName = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textMName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textMName.setBounds(761, 50, 125, 45);
 
 		shlPharmacyManagementSystem.open();
 		shlPharmacyManagementSystem.layout();
@@ -79,5 +101,6 @@ public class Insurance {
 			}
 		}
 	}
+
 
 }

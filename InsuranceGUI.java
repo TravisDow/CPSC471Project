@@ -7,11 +7,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-public class Manufacturer {
+public class InsuranceGUI {
 
-	private Text textManufacturerID;
 	private Text textName;
-	
+	private Text textLocation;
 	
 	/**
 	 * Launch the application.
@@ -19,7 +18,7 @@ public class Manufacturer {
 	 */
 	public static void main(String[] args) {
 		try {
-			Manufacturer window = new Manufacturer();
+			InsuranceGUI window = new InsuranceGUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,25 +51,25 @@ public class Manufacturer {
 		btnModify.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.NORMAL));
 		btnModify.setBounds(744, 480, 200, 100);
 		
-		Label lblManufacturerID = new Label(shlPharmacyManagementSystem, SWT.NONE);
-		lblManufacturerID.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		lblManufacturerID.setAlignment(SWT.CENTER);
-		lblManufacturerID.setBounds(130, 50, 125, 45);
-		lblManufacturerID.setText("Manufacturer ID:");
-		
 		Label lblName = new Label(shlPharmacyManagementSystem, SWT.NONE);
 		lblName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		lblName.setText("Name:");
 		lblName.setAlignment(SWT.CENTER);
-		lblName.setBounds(130, 175, 125, 45);
+		lblName.setBounds(130, 50, 125, 45);
+		lblName.setText("Name:");
 		
-		textManufacturerID = new Text(shlPharmacyManagementSystem, SWT.BORDER);
-		textManufacturerID.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		textManufacturerID.setBounds(280, 50, 125, 45);
+		Label lblLocation = new Label(shlPharmacyManagementSystem, SWT.NONE);
+		lblLocation.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblLocation.setText("Location:");
+		lblLocation.setAlignment(SWT.CENTER);
+		lblLocation.setBounds(130, 175, 125, 45);
 		
 		textName = new Text(shlPharmacyManagementSystem, SWT.BORDER);
 		textName.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		textName.setBounds(280, 175, 125, 45);
+		textName.setBounds(280, 50, 125, 45);
+		
+		textLocation = new Text(shlPharmacyManagementSystem, SWT.BORDER);
+		textLocation.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		textLocation.setBounds(280, 175, 125, 45);
 
 		shlPharmacyManagementSystem.open();
 		shlPharmacyManagementSystem.layout();

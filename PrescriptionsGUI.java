@@ -7,7 +7,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class Prescriptions {
+public class PrescriptionsGUI {
+	
 	private Text textPrescriptionNumber;
 	private Text textPatient;
 	private Text textPhysician;
@@ -23,7 +24,7 @@ public class Prescriptions {
 	 */
 	public static void main(String[] args) {
 		try {
-			Prescriptions window = new Prescriptions();
+			PrescriptionsGUI window = new PrescriptionsGUI();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
