@@ -53,7 +53,7 @@ public class DBManager
 		try
 		{
 			// Prepare update statement
-			procedure = con.prepareCall(query); 
+			procedure = con.prepareCall(query);
 			procedure.setInt(1, scrip.getPrescriptionNo());
 			procedure.setString(2, scrip.getPatient());
 			procedure.setDate(3, today);
@@ -456,13 +456,36 @@ public class DBManager
 	/**
 	 * Queries the database for a list of drugs that
 	 * are compatible with the drug provided.
-	 * @param DIN - the primary key of the drug
-	 * @return ArrayList<Drug> - the list of drugs
+	 * @param DIN - the primary key of the drug to check
+	 * @return ArrayList<String> - the list of incompatible drug IDs
 	 */
-	public void queryCompatible(int DIN)
+	public ArrayList<String> queryCompatible(int DIN)
 	{
-		// TODO finish query
-		return;
+		// Generate query
+		query = "{CALL getCompatible(?)}";
+		
+		ArrayList<String> incomp = new ArrayList<String>();
+		
+		try
+		{
+			// Send query to database
+			procedure = con.prepareCall(query);
+			procedure.setInt(1, DIN);
+			result = procedure.executeQuery();
+			
+			// Loops until result set is empty
+			while(result.next())
+			{
+				// Parse result set from database
+				incomp.add(Integer.toString(result.getInt(1)));
+			}
+		}
+		catch(SQLException e)
+		{
+			return null; // If query fails, return null
+		}
+		
+		return incomp;
 	}
 	
 	/**
@@ -595,16 +618,27 @@ public class DBManager
 			String fName = result.getString(1);
 			String mName = result.getString(2);
 			String lName = result.getString(3);
-			String sex = result.getString(4); // TODO Should be character
+			char sex = result.getString(4).charAt(0);
 			phoneNum = result.getInt(5);
 			int DID = result.getInt(6);
+			String iName = result.getString(7);
+			String location = result.getString(8);
 			
-			return new Patient(phoneNum, sex.charAt(0), fName, mName, lName);
+			// Create name array list
+			ArrayList<String> name = new ArrayList<String>();
+			name.add(fName);
+			name.add(mName);
+			name.add(lName);
+			
+			// Create medication history array list
+			ArrayList<String> previousMeds = this.queryPatientHistory(phoneNum);
+			
+			return new Patient(phoneNum, sex, name, previousMeds);
 		}
 		catch(SQLException e)
 		{
 			return null; // If query fails, return null
-		}
+		}	
 	}
 	
 	/**
@@ -627,7 +661,7 @@ public class DBManager
 			procedure.setInt(1, phoneNum);
 			result = procedure.executeQuery();
 			
-			// Loops until result set empty
+			// Adds medications to array list until result set empty
 			while(result.next())
 			{
 				previousMeds.add(result.getString(1));
@@ -643,24 +677,35 @@ public class DBManager
 	
 	/**
 	 * Queries the database for a list of the
-	 * provided patient's current prescriptions.
-	 * @param phoneNum - the primary key of the patient
-	 */
-	public void queryPatientPrescription(int phoneNum)
-	{
-		// TODO finish query
-		return;
-	}
-	
-	/**
-	 * Queries the database for a list of the
 	 * side effects of the provided drug.
 	 * @param DIN - the primary key of the drug
 	 */
-	public void querySideEffects(int DIN)
+	public ArrayList<String> querySideEffects(int DIN)
 	{
-		// TODO finish query
-		return;
+		// Generate query
+		query = "{CALL getSideEffects(?)}";
+		
+		ArrayList<String> sideEffects = new ArrayList<String>();
+		
+		try
+		{
+			// Send query to database
+			procedure = con.prepareCall(query);
+			procedure.setInt(1, DIN);
+			result = procedure.executeQuery();
+			
+			// Get all the side effects for this drug in the database
+			while(result.next())
+			{
+				sideEffects.add(result.getString(1));
+			}
+			
+			return sideEffects; // If query succeeds, return list of all side effects
+		}
+		catch(SQLException e)
+		{
+			return null; // If query fails, return null
+		}
 	}
 	
 	/**
@@ -686,7 +731,7 @@ public class DBManager
 			String name = result.getString(2);
 			String position = result.getString(3);
 			
-			return new Staff(staffID, name, position); // TODO fix constructor
+			return new Staff(name, position, staffID);
 			
 		}
 		catch(SQLException e)
@@ -720,8 +765,7 @@ public class DBManager
 			
 			Drug drug = this.queryDrug(drugID);
 			
-			return new Stock(amount, drug); // TODO fix constructor
-			
+			return new Stock(amount);
 		}
 		catch(SQLException e)
 		{
@@ -744,7 +788,7 @@ public class DBManager
 		{
 			// Prepare insert statement
 			procedure = con.prepareCall(query);
-			procedure.setString(1, doc.getName()); // TODO fix getters
+			procedure.setString(1, doc.getName());
 			procedure.setInt(2, doc.getId());
 			procedure.setString(3, doc.getLocation());
 			
@@ -774,12 +818,12 @@ public class DBManager
 		{
 			// Prepare insert statement
 			procedure = con.prepareCall(query);
-			procedure.setString(1, drug.getGenericName()); // TODO fix getters
+			procedure.setString(1, drug.getGenericName());
 			procedure.setString(2, drug.getBrandName());
 			procedure.setString(3, drug.getDose());
-			procedure.setInt(4, drug.getNumber());
-			procedure.setInt(5, drug.getManufacturerNumber());
-			procedure.setInt(6, drug.getPrescriptionNumber());
+			procedure.setInt(4, 1); // Drug number
+			procedure.setInt(5, 2); // Manufacturer number
+			procedure.setInt(6, 3); // Prescription number
 			
 			// Send insert statement to database
 			procedure.executeUpdate();
@@ -807,12 +851,12 @@ public class DBManager
 		{
 			// Prepare insert statement
 			procedure = con.prepareCall(query);
-			procedure.setString(1, patient.getFName()); // TODO fix getters
-			procedure.setString(2, patient.getMName());
-			procedure.setString(3, patient.getLName());
-			procedure.setString(4, patient.getSex());
-			procedure.setInt(5, patient.getNumber());
-			procedure.setInt(6, patient.getDrugNumber());
+			procedure.setString(1, patient.getName().get(0));
+			procedure.setString(2, patient.getName().get(1));
+			procedure.setString(3, patient.getName().get(2));
+			procedure.setString(4, String.valueOf(patient.getSex()));
+			procedure.setInt(5, patient.getPhone());
+			procedure.setInt(6, 1); // Doctor ID number
 			
 			// Send insert statement to database
 			procedure.executeUpdate();
@@ -842,13 +886,13 @@ public class DBManager
 		{
 			// Prepare insert statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, newPre.getPNo()); // TODO fix getters
-			procedure.setString(2, newPre.getDrugName());
-			procedure.setString(3, newPre.getPatientName());
-			procedure.setString(4, newPre.getDoctorName());
-			procedure.setInt(5, newPre.getPhone());
-			procedure.setInt(5, newPre.getDate());
-			procedure.setInt(6, newPre.getId());
+			procedure.setInt(1, newPre.getPrescriptionNo());
+			procedure.setString(2, newPre.getDrug());
+			procedure.setString(3, newPre.getPatient());
+			procedure.setString(4, "Dr. Fakey - update");
+			procedure.setInt(5, 1); // TODO fix these
+			procedure.setInt(5, 2);
+			procedure.setInt(6, 3);
 			
 			// Send insert statement to database
 			procedure.executeUpdate();
@@ -876,10 +920,10 @@ public class DBManager
 		{
 			// Prepare insert statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, newStaff.getId()); // TODO fix getters
-			procedure.setString(2, newStaff.getName());
+			procedure.setInt(1, newStaff.getSid());
+			procedure.setString(2, newStaff.getSname());
 			procedure.setString(3, newStaff.getPosition());
-			procedure.setString(4, newStaff.getAddress());
+			procedure.setString(4, "123 Fake Street -- Update this"); // TODO fix this
 
 			// Send insert statement to database
 			procedure.executeUpdate();
@@ -911,8 +955,8 @@ public class DBManager
 		{
 			// Prepare insert statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, newStock.getID()); // TODO fix getters
-			procedure.setString(2, newStock.getAddress());
+			procedure.setInt(1, 1); 
+			procedure.setString(2, "123 Fake Street -- update this"); // TODO fix this
 			procedure.setInt(3, newStock.getAmount());
 
 			// Send insert statement to database
@@ -941,9 +985,9 @@ public class DBManager
 		{
 			// Prepare update statement
 			procedure = con.prepareCall(query);
-			procedure.setString(1, doc.getName()); // TODO fix getters
-			procedure.setString(2, doc.getClinic());
-			procedure.setInt(3, doc.getID());
+			procedure.setString(1, doc.getName());
+			procedure.setString(2, doc.getLocation());
+			procedure.setInt(3, doc.getId());
 			
 			// Send update statement to database
 			procedure.executeUpdate();
@@ -971,12 +1015,12 @@ public class DBManager
 		{
 			// Prepare update statement
 			procedure = con.prepareCall(query); 
-			procedure.setString(1, drug.getGenericName()); // TODO fix getters
+			procedure.setString(1, drug.getGenericName()); 
 			procedure.setString(2, drug.getBrandName());
-			procedure.setString(3, drug.getAmount());
-			procedure.setInt(4, drug.getID());
-			procedure.setInt(5,  drug.getMNo());
-			procedure.setInt(6, drug.getPID());
+			procedure.setString(3, drug.getDose());
+			procedure.setInt(4, drug.getDin());
+			procedure.setInt(5,  1); // TODO fix these
+			procedure.setInt(6, 2);
 					
 			// Send update statement to database
 			procedure.executeUpdate();
@@ -1004,10 +1048,10 @@ public class DBManager
 		{
 			// Prepare update statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, paper.getPNo()); // TODO fix getters
-			procedure.setDate(2, paper.getDateFilled());
-			procedure.setDate(3, paper.getDatePrescribed());
-			procedure.setInt(4, paper.getDNo());
+			procedure.setInt(1, paper.getPrescriptionNo());
+			procedure.setString(2, paper.getDateReceived());	 // TODO fix these
+			procedure.setString(3, paper.getDatePrescribed());
+			procedure.setString(4, paper.getDrug());
 					
 			// Send update statement to database
 			procedure.executeUpdate();
@@ -1035,10 +1079,10 @@ public class DBManager
 		{
 			// Prepare update statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, paper.getPNo()); // TODO fix getters
-			procedure.setDate(2, paper.getDateFilled());
-			procedure.setDate(3, paper.getDatePrescribed());
-			procedure.setInt(4, paper.getDNo());
+			procedure.setInt(1, physical.getPrescriptionNo()); 
+			procedure.setString(2, physical.getDateFilled());	// TODO Fix these
+			procedure.setString(3, physical.getDatePickedUp());
+			procedure.setString(4, physical.getDrug());
 					
 			// Send update statement to database
 			procedure.executeUpdate();
@@ -1066,10 +1110,10 @@ public class DBManager
 		{
 			// Prepare update statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, newStaff.getStaffId()); // TODO fix getters
-			procedure.setDate(2, newStaff.getName());
-			procedure.setDate(3, newStaff.getPosition());
-			procedure.setInt(4, newStaff.getAddress());
+			procedure.setInt(1, newStaff.getSid());
+			procedure.setString(2, newStaff.getSname());
+			procedure.setString(3, newStaff.getPosition());
+			procedure.setString(4, "123 Fake Street -- update this"); // TODO fix this
 					
 			// Send update statement to database
 			procedure.executeUpdate();
@@ -1082,6 +1126,12 @@ public class DBManager
 		return true; // If update statement succeeds, return true			
 	}
 	
+	/**
+	 * Updates a stock file in the database.
+	 * @param stock - the stock to be updated
+	 * @return boolean - true if update okay
+	 * 					 false if update failed
+	 */
 	public boolean updateStock(Stock stock)
 	{
 		// Generate query
@@ -1091,8 +1141,8 @@ public class DBManager
 		{
 			// Prepare update statement
 			procedure = con.prepareCall(query);
-			procedure.setInt(1, stock.DrugId()); // TODO fix getters
-			procedure.setString(2, stock.address());
+			procedure.setInt(1, 1); // TODO fix these
+			procedure.setString(2, "123 Fake Stree -- update this");
 			procedure.setInt(3, stock.getAmount());
 					
 			// Send update statement to database
